@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontdesk
+spec:
+  selector:
+    matchLabels:
+      app: frontdesk
+  template:
+    metadata:
+      annotations:  
+        dapr.io/app-id: frontdesk
+        dapr.io/app-port: "8082"
+        dapr.io/enabled: "true"
+      labels:
+        app: frontdesk
+    spec:
+      containers:
+      - name: frontdesk
+        image: ko://github.com/salaboy/devex-on-k8s/chapter07/end/go/frontdesk
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontdesk
+spec:
+  selector:
+    app: frontdesk
+  ports:
+  - port: 80
+    targetPort: 8082         

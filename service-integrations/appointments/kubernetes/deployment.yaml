@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appointments
+spec:
+  selector:
+    matchLabels:
+      app: appointments
+  template:
+    metadata:
+      annotations:  
+        dapr.io/app-id: appointments
+        dapr.io/app-port: "8081"
+        dapr.io/enabled: "true"
+      labels:
+        app: appointments
+    spec:
+      containers:
+      - name: appointments
+        image: ko://github.com/salaboy/devex-on-k8s/chapter07/end/go/appointments
+        env: 
+        - name: POSTGRES_HOST
+          value: postgresql.default.svc.cluster.local
+        - name: POSTGRES_USERNAME
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgresql
+              key: postgres-password
+        - name: PUBSUB_NAME
+          value: hospital-pubsub
+        - name: PUBSUB_TOPIC_NAME
+          value: events-topic         
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: appointments
+spec:
+  selector:
+    app: appointments
+  ports:
+  - port: 80
+    targetPort: 8081           

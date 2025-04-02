@@ -1,0 +1,10 @@
+apiVersion: dapr.io/v1alpha1
+kind: Subscription
+metadata:
+  name: frontdesk-subscritpion
+spec:
+  topic: events-topic
+  route: /frontdesk/events
+  pubsubname: hospital-pubsub
+scopes: 
+- frontdesk
