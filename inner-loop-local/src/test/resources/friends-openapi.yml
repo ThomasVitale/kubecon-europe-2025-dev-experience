@@ -1,0 +1,44 @@
+openapi: 3.1.0
+info:
+  title: Friends API
+  version: 1.0.0
+  description: API definition for managing a list of friends.
+  contact:
+    name: API Support
+    url: http://example.com/support
+    email: support@example.com
+  license:
+    name: MIT License
+    url: https://opensource.org/licenses/MIT
+
+paths:
+  /list:
+    summary: Operations related to the list of friends
+    get:
+      tags:
+        - friends
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  example: "Alice"
+              examples:
+                friends_example:
+                  value:
+                    - "Joey"
+                    - "Phoebe"
+                    - "Monica"
+          description: Retrieve a list of friends' names
+      operationId: GetFriendsList
+      summary: Retrieve a list of friends' names
+
+components:
+  schemas:
+    FriendList:
+      type: array
+      items:
+        type: string
