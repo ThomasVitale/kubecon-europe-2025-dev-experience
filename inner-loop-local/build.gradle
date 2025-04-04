@@ -19,28 +19,31 @@ repositories {
 }
 
 ext {
-    set('arconiaVersion', "0.7.0")
-	set('springAiVersion', "1.0.0-M6")
+    set('arconiaVersion', "0.8.0")
 }
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.ai:spring-ai-ollama-spring-boot-starter'
-	implementation 'io.arconia:arconia-opentelemetry-spring-boot-starter'
 
-	testAndDevelopmentOnly 'io.arconia:arconia-dev-service-ollama'
-	testAndDevelopmentOnly 'io.arconia:arconia-dev-service-opentelemetry-lgtm'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	implementation 'org.flywaydb:flyway-core'
+    implementation 'org.flywaydb:flyway-database-postgresql'
+
+    runtimeOnly 'org.postgresql:postgresql'
+
+	developmentOnly 'io.arconia:arconia-dev-tools'
+	testAndDevelopmentOnly 'io.arconia:arconia-dev-services-postgresql'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework:spring-webflux'
+	testImplementation 'io.github.microcks:microcks-testcontainers:0.3.1'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 dependencyManagement {
 	imports {
 		mavenBom "io.arconia:arconia-bom:${arconiaVersion}"
-		mavenBom "org.springframework.ai:spring-ai-bom:${springAiVersion}"
 	}
 }
 

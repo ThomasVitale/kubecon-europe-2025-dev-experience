@@ -1,0 +1,12 @@
+apiVersion: skaffold/v4beta12
+kind: Config
+metadata:
+  name: appointments
+build:
+  platforms: ["all"]
+  artifacts:
+    - image: github.com/thomasvitale/appointments
+      ko: {}
+manifests:
+  rawYaml:
+    - k8s/deployment.yaml

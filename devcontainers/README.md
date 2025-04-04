@@ -35,5 +35,5 @@ pack sbom download devcontainers:1.0.0 --output-dir image-sboms
 If you're running on Apple M4, you might need to run the following:
 
 ```shell
-export JAVA_TOOL_OPTIONS: -XX:UseSVE=0
+export JAVA_TOOL_OPTIONS=-XX:UseSVE=0
 ```
